@@ -34,3 +34,7 @@ app.use('/api', router);
 app.listen(port);
 
 console.log(`Magalu Finder RESTful API server started on ${port} port`);
+console.log(process.env);
+
+// we need that for testing
+module.exports = app;
