@@ -99,13 +99,28 @@ describe('Products', () => {
                 })
         })
 
-        // should accept a product without store?
+        it('should not add a Product without at least one store', (done) => {
+            var product = new Product();
+            product.code = 1
+            product.description = 'product n1';
+            product.price = 20.90;
 
+            chai.request(server)
+                .post('/api/products/')
+                .set('x-admin', true)
+                .send(store)
+                .end((err, res) => {
+                    expect(res).to.have.status(400);
+                    done();
+                })
+        })
+        
         it('should accept a valid new product', (done) => {
             var product = new Product();
             product.code = 1
             product.description = 'product n1';
             product.price = 20.90;
+            product.stores.push(1);
 
             chai.request(server)
                 .post('/api/products/')
