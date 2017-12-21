@@ -1,11 +1,7 @@
-let mongoose = require('mongoose');
-let Schema = mongoose.Schema;
+let storeClass = function Store(){
+    this.code = 0;
+    this.description = '';
+    this.postalcode = 140100000;
+};
 
-// store schema definition
-let StoreSchema = new Schema({
-    code: {type: Number, required: true },
-    description: { type: String, required: true },
-    postalCode: { type: Number, required: true }
-});
-
-module.exports = mongoose.model('store', StoreSchema);
+module.exports = storeClass;

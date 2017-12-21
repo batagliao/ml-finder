@@ -1,9 +1,13 @@
-// structure imports
+// imports
 let express = require('express');
+let diskdb = require('diskdb');
 
 // app imports
 let store_routes = require('./api/routes/storeRoutes');
 
+// setup db
+// using diskdb to keep it simple
+diskdb.connect('api/data');
 
 let app = express();
 let port = process.env.PORT || 3000;
@@ -34,7 +38,6 @@ app.use('/api', router);
 app.listen(port);
 
 console.log(`Magalu Finder RESTful API server started on ${port} port`);
-console.log(process.env);
 
-// we need that for testing
+// we need that for testing with mocha/chai
 module.exports = app;
