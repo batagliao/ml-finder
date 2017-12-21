@@ -1,5 +1,11 @@
 # ml-finder
 
+## Como executar
+`git clone https://github.com/batagliao/ml-finder.git` <br />
+`npm install`
+<br />
+`npm start`
+
 ## Server
 
 No lado servidor foi definido uma API utilizando NodeJS, com o uso do Express.
