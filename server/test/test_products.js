@@ -136,39 +136,92 @@ describe('Products', () => {
         
     });
 
-    // describe('/GET stores', () => {
+    describe('/GET products', () => {
 
-    //     before('clearing stores db', (done) => { // clear stores database before all GET tests
-    //         return db.stores.remove({}).then(done());
-    //     });
+        before('clearing products db', (done) => { // clear products database before all GET tests
+            return db.products.remove({}).then(done());
+        });
 
-    //     it('should get an empty array with a clean DB', (done) => {
-    //         chai.request(server)
-    //             .get('/api/stores')
-    //             .end((err, res) => {
-    //                 expect(res).to.have.status(200);
-    //                 expect(res.body).to.be.a('array');
-    //                 expect(res.body).to.have.lengthOf(0);
-    //                 done();
-    //             });
-    //     });
+        it('should get an empty array with a clean DB', (done) => {
+            chai.request(server)
+                .get('/api/products')
+                .end((err, res) => {
+                    expect(res).to.have.status(200);
+                    expect(res.body).to.be.a('array');
+                    expect(res.body).to.have.lengthOf(0);
+                    done();
+                });
+        });
 
-    //     it('shoud return items after insert', (done) => {
-    //         var store = new Store();
-    //         store.code = 1;
-    //         store.description = 'store n1';
-    //         store.postalcode = 14010000;
-    //         repo.add(store);
+        it('shoud return items after insert', (done) => {
+            var product = new Product();
+            product.code = 1;
+            product.description = 'product n1';
+            product.postalcode = 20.90;
+            repo.add(product);
 
-    //         chai.request(server)
-    //             .get('/api/stores')
-    //             .end((err, res) => {
-    //                 expect(res).to.have.status(200);
-    //                 expect(res.body).to.be.a('array');
-    //                 expect(res.body).to.have.lengthOf(1);
-    //             });
-    //     });
+            chai.request(server)
+                .get('/api/products')
+                .end((err, res) => {
+                    expect(res).to.have.status(200);
+                    expect(res.body).to.be.a('array');
+                    expect(res.body).to.have.lengthOf(1);
+                });
+        });
 
-    // });
+    });
+
+    describe('/GET products by store', () => {
+
+        before('inserting products to find', (done) => {
+            var product = new Product();
+            product.code = 1;
+            product.description = 'product n1';
+            product.price = 20.90;
+            product.stores = [1, 2, 3, 4];
+
+            repo.add(product);
+
+            product = new Product();
+            product.code = 2;
+            product.description = 'product n2';
+            product.price = 2.90;
+            product.stores = [1];
+
+            repo.add(product);
+        });
+
+        it('should get an empty product array if not exist in store', (done) => {
+            chai.request(server)
+                .get('/api/products?store=8')
+                .end((err, res) => {
+                    expect(res).to.have.status(200);
+                    expect(res.body).to.be.a('array');
+                    expect(res.body).to.have.lengthOf(0);
+                });
+        });
+
+        it('should get only 1 products in store 4', (done) => {
+            chai.request(server)
+                .get('/api/products?store=4')
+                .end((err, res) => {
+                    expect(res).to.have.status(200);
+                    expect(res.body).to.be.a('array');
+                    expect(res.body).to.have.lengthOf(1);
+                });
+        });
+
+        it('should get 2 products in store 1', (done) => {
+            chai.request(server)
+                .get('/api/products?store=1')
+                .end((err, res) => {
+                    expect(res).to.have.status(200);
+                    expect(res.body).to.be.a('array');
+                    expect(res.body).to.have.lengthOf(2);
+                });
+        });
+
+
+    });
 
 });
