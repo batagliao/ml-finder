@@ -28,4 +28,5 @@ A estrutura do projeto **Server** está organizada da seguinte forma:
  |- test &nbsp;&nbsp; *contém os testes para a API*
  | &nbsp; |- data &nbsp;&nbsp; *contém o banco de testes*
 
- 
+ ### Nota sobre a modelagem
+ Preferi vincular os produtos com a loja de forma aparentemente 'inversa'. Na minha modelagem, os produtos possuem o ponteiro para as lojas e não as lojas ponteiro para seus produtos. Na perspectiva do cliente ele deseja o produto, independente de qual loja ele se encontre, e essa informação é relevante. Na perspectiva do adminstrador, poder cadastrar o produto apenas 1 vez e especificar em qual loja está disponível ao invés de cadastrar o mesmo produto para cada loja.
