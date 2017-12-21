@@ -7,5 +7,5 @@ exports.list_all_stores = function(req, res){
 
 // route: POST /stores
 exports.add_store = function(req, res){
-
+    res.json({message: 'not implemented'});
 };

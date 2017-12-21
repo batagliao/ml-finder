@@ -1,7 +1,7 @@
-let db = require('diskdb');
+const db = require('diskdb');
 
 db.loadCollections('stores');
 
-exports.add = function(storemodel){
+exports.add = (storemodel) => {
     db.stores.save(storemodel);
 };
