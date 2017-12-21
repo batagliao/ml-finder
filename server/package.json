@@ -4,7 +4,7 @@
   "description": "Api for Finder Service",
   "main": "index.js",
   "scripts": {
-    "test": "mocha",
+    "test": "mocha --recursive",
     "start": "nodemon server.js"
   },
   "keywords": [
@@ -21,6 +21,7 @@
     "nodemon": "^1.14.0"
   },
   "dependencies": {
-    "express": "^4.16.2"
+    "express": "^4.16.2",
+    "mongoose": "^4.13.7"
   }
 }
