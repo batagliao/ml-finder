@@ -1,5 +1,3 @@
-import { request } from 'http';
-
 //During the test the env variable is set to test
 process.env.NODE_ENV = 'test';
 
@@ -19,7 +17,7 @@ chai.use(chaiHttp);
 db.connect(`${__dirname}/data`);
 db.loadCollections(['stores']);
 
-describe('Stores', () => {
+describe('Stores Controller', () => {
 
     // runs before all tests in this block
     before('clearing stores db', (done) => { // clear stores database before all tests

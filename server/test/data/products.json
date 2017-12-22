@@ -1,0 +1,1 @@
+[{"code":1,"description":"product n1","price":0,"stores":[],"postalcode":20.9,"_id":"f2a932754ebc405ba721093090eaf518"},{"code":1,"description":"product n1","price":20.9,"stores":[1,2,3,4],"_id":"85a4165891384ac9af5bed926489e9ee"},{"code":2,"description":"product n2","price":2.9,"stores":[1],"_id":"bee02a8b9934496fa669e88ef574d648"}]
