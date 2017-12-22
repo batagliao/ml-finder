@@ -26,11 +26,11 @@ describe('Product Repository', () => {
 
     describe('Product CRUD', () => {
         it('should add Product to db', (done) => {
-            var Product = new Product();
-            Product.code = 1;
-            Product.description = 'Product n1';
-            Product.price = 12.99;
-            repo.add(Product);
+            var product = new Product();
+            product.code = 1;
+            product.description = 'Product n1';
+            product.price = 12.99;
+            repo.add(product);
 
             var productsFromDb = db.products.find();
             expect(productsFromDb).to.be.a('array');
@@ -55,17 +55,17 @@ describe('Product Repository', () => {
         it('should read single value from db', (done) => {
             var ProductFromDb = repo.getOne({code: 1});
             expect(ProductFromDb).to.be.a('object');
-            expect(ProductFromDb).to.have.code.equal(1);
+            expect(ProductFromDb.code).to.be.equal(1);
             done();
         });
 
         it('should update a value to db', (done) => {
             var productsFromDb = db.products.findOne();  //get first item
-            ProductFromDb.description = 'Product n1 - updated';
-            repo.update(ProductFromDb);
+            productsFromDb.description = 'Product n1 - updated';
+            repo.update({code: 1}, productsFromDb);
 
             var newProductFromDb = db.products.findOne();
-            expect(newProductFromDb).to.have.deep.equals(ProductFromDb);
+            expect(newProductFromDb).to.have.deep.equals(productsFromDb);
             done();
         });
 
