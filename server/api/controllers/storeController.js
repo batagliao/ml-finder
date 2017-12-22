@@ -7,5 +7,10 @@ exports.list_all_stores = (req, res) => {
 
 // route: POST /stores
 exports.add_store = (req, res) => {
+
+    if(req.header('x-admin') !== true){
+        res.status(403).send();
+    }
+
     res.json({message: 'not implemented'});
 };

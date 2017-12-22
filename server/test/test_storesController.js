@@ -21,7 +21,9 @@ describe('Stores Controller', () => {
 
     // runs before all tests in this block
     before('clearing stores db', (done) => { // clear stores database before all tests
-        return db.stores.remove({}).then(done());
+            db.stores.remove();
+            db.loadCollections(['stores']);
+            done();
     });
 
     it('it should has 0 objects in collection', (done) => {
@@ -35,8 +37,7 @@ describe('Stores Controller', () => {
                 .post('/api/stores')
                 .send(new Store()) // error expected as no x-admin is passed on HEAD
                 .end((err, res) => {
-                    expect(res).to.have.status(403) // forbiden, as user is not an admin                    
-                    expect(res).to.have.body.length.equal(0);
+                    expect(res).to.have.status(403); // forbiden, as user is not an admin
                     done();
                 });
         });

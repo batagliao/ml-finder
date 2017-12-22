@@ -19,7 +19,8 @@ describe('Product Repository', () => {
     });
 
     it('it should has 0 objects in collection', (done) => {
-        expect(db.products.count()).to.be.equal(0);
+        db.products.remove();
+        db.loadCollections(['products']);
         done();
     });
 

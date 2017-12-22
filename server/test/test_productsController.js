@@ -21,7 +21,9 @@ describe('Products Controller', () => {
 
     // runs before all tests in this block
     before('clearing products db', (done) => { // clear products database before all tests
-        return db.products.remove({}).then(done());
+        db.products.remove();
+        db.loadCollections(['products']);
+        done();
     });
 
     it('it should has 0 objects in collection', (done) => {
@@ -36,7 +38,6 @@ describe('Products Controller', () => {
                 .send(new Product()) // error expected as no x-admin is passed on HEAD
                 .end((err, res) => {
                     expect(res).to.have.status(403) // forbiden, as user is not an admin                    
-                    expect(res).to.have.body.length.equal(0);
                     done();
                 });
         });
