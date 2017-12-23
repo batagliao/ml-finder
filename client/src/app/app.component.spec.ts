@@ -29,10 +29,19 @@ describe('AppComponent', () => {
     const app = fixture.debugElement.componentInstance;
     expect(app.title).toEqual('app');
   }));
-  it('should render title in a h1 tag', async(() => {
+  it('should render title in navbar', async(() => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to app!');
+    expect(compiled.querySelector('a.navbar-brand').textContent).toContain('Magalu Finder');
+  }));
+
+  it(`should render 'Administrador' on navbar`, async(() => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const compiled = fixture.debugElement.nativeElement;
+    const element = compiled.querySelector('ul.navbar-right a');
+    expect(element.textContent).toContain('Administrador');
+    expect(element.attributes['href'].value).toContain('admin');
   }));
 });
