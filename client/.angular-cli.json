@@ -19,9 +19,10 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "styles.scss"
+        "styles.css"
       ],
-      "scripts": [        
+      "scripts": [
+        "../node_modules/jquery/dist/jquery.slim.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
@@ -55,7 +56,7 @@
     }
   },
   "defaults": {
-    "styleExt": "scss",
+    "styleExt": "css",
     "component": {}
   }
 }
