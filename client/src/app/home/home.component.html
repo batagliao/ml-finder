@@ -1,3 +1,25 @@
-<p>
-  home works!
-</p>
+<div class="taller">
+  <div class="row">
+    <div class="col-sm-6 col-sm-offset-3 text-center">
+      <h2 class="text-primary center-block">Magalu Finder</h2>
+    </div>
+  </div>
+  <div class="row">
+    <!-- spacer -->
+    &nbsp;
+  </div>
+  <div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+      <form [formGroup]="searchForm">
+        <div class="input-group">
+          <input type="text" class="form-control" formControlName="searchBox" placeholder="digite o nome do produto">
+          <span class="input-group-btn">
+            <button class="btn btn-primary" type="button">
+              <i class="fa fa-search" aria-hidden="true"></i>
+            </button>
+          </span>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
