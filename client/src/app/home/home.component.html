@@ -12,9 +12,11 @@
     <div class="col-sm-6 col-sm-offset-3">
       <form [formGroup]="searchForm">
         <div class="input-group">
-          <input type="text" class="form-control" formControlName="searchBox" placeholder="digite o nome do produto">
+          <span [class.has-error]="searchForm.controls.searchBox.invalid && searchForm.controls.searchBox.touched">
+            <input type="text" class="form-control" formControlName="searchBox" placeholder="digite o nome do produto">
+          </span>
           <span class="input-group-btn">
-            <button class="btn btn-primary" type="button">
+            <button class="btn btn-primary" type="submit" [disabled] = "!searchForm.valid">
               <i class="fa fa-search" aria-hidden="true"></i>
             </button>
           </span>
