@@ -1,21 +1,23 @@
-import { NgModule, Component } from '@angular/core';
+
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { HomeComponent } from '../home/home.component';
 import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
-
+import { HomeComponent } from '../home/home.component';
 
 const appRoutes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
-  { path: '**', Component: PageNotFoundComponent }
+  { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({
   imports: [
     RouterModule.forRoot(appRoutes,
-      {enableTracing: false }) // <-- use true for debug purposes only
+      { enableTracing: false } // <!-- for debugging purposes only
+    )
   ],
-  declarations: [],
-  exports: [RouterModule]
+  exports: [
+    RouterModule
+  ]
 })
 export class AppRoutingModule { }
