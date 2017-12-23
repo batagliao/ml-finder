@@ -1,6 +1,7 @@
 // imports
 const express = require('express');
 const db = require('diskdb');
+const bodyparser = require('body-parser');
 
 // app imports
 const store_routes = require('./api/routes/storeRoutes');
@@ -33,6 +34,9 @@ router.get("/", function (req, res) {
 
 // define routes for /stores
 router.use(store_routes);
+
+// body parser must come before routes
+app.use(bodyparser.json());
 
 // make server use the router
 app.use('/api', router);

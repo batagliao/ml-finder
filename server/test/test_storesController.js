@@ -125,8 +125,8 @@ describe('Stores Controller', () => {
                 .set('x-admin', true)
                 .send(store)
                 .end((err, res) => {
-                    expect(res).to.have.status(500);
-                    expect(res).to.have.message.equal(`duplicated store ${store.code}`);
+                    expect(res).to.have.status(500);                    
+                    expect(res.body).to.have.be.equal(`duplicated store ${store.code}`);
                     done();
                 })
         })
@@ -136,7 +136,9 @@ describe('Stores Controller', () => {
     describe('/GET stores', () => {
 
         before('clearing stores db', (done) => { // clear stores database before all GET tests
-            return db.stores.remove({}).then(done());
+            db.stores.remove();
+            db.loadCollections(['stores']);
+            done();
         });
 
         it('should get an empty array with a clean DB', (done) => {
@@ -154,7 +156,7 @@ describe('Stores Controller', () => {
             var store = new Store();
             store.code = 1;
             store.description = 'store n1';
-            store.postalcode = 14010000;
+            store.postalcode = 1401000;
             repo.add(store);
 
             chai.request(server)
@@ -163,6 +165,7 @@ describe('Stores Controller', () => {
                     expect(res).to.have.status(200);
                     expect(res.body).to.be.a('array');
                     expect(res.body).to.have.lengthOf(1);
+                    done();
                 });
         });
 

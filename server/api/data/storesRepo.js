@@ -15,7 +15,7 @@ exports.add = (storemodel) => {
  * @param {*} criteria - Optional parameter indicating the criteria to filter. If not provided, gets all
  */
 exports.get = (criteria) => {
-    return db.stores.find(criteria);    
+    return db.stores.find(criteria);
 };
 
 /**
