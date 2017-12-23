@@ -37,4 +37,4 @@ A estrutura do projeto **Server** está organizada da seguinte forma:
 
 
  ## Client
- No projeto client, foi utilizado Angular
+ No projeto client, foi utilizado Angular com Bootstrap e FontAwesome.
