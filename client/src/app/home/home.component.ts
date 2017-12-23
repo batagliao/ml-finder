@@ -13,10 +13,15 @@ export class HomeComponent implements OnInit {
   constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
-
     this.searchForm = new FormGroup({
       searchBox: new FormControl('', Validators.required)
     });
+  }
+
+  onFormSubmit() {
+    if (this.searchForm.valid) {
+      // TODO: implement
+    }
   }
 
 }

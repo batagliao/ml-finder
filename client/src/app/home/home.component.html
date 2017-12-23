@@ -10,7 +10,7 @@
   </div>
   <div class="row">
     <div class="col-sm-6 col-sm-offset-3">
-      <form [formGroup]="searchForm">
+      <form [formGroup]="searchForm" (ngSubmit)="onFormSubmit()">
         <div class="input-group">
           <span [class.has-error]="searchForm.controls.searchBox.invalid && searchForm.controls.searchBox.touched">
             <input type="text" class="form-control" formControlName="searchBox" placeholder="digite o nome do produto">
