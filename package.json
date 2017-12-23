@@ -1,0 +1,20 @@
+{
+  "name": "ml-finder",
+  "version": "1.0.0",
+  "description": "## Como executar `git clone https://github.com/batagliao/ml-finder.git` <br /> `npm install` <br /> `npm start`",
+  "main": "index.js",
+  "scripts": {
+    "install": "npm --prefix ./server install ./server && npm --prefix ./client install ./client",
+    "test": "(cd server && npm test) && (cd client && npm test)"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/batagliao/ml-finder.git"
+  },
+  "author": "Lucas Batagliao",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/batagliao/ml-finder/issues"
+  },
+  "homepage": "https://github.com/batagliao/ml-finder#readme"
+}
