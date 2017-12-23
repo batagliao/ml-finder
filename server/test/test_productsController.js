@@ -74,7 +74,7 @@ describe('Products Controller', () => {
             product.price = 20.90;
 
             chai.request(server)
-                .post('/api/product/')
+                .post('/api/products/')
                 .set('x-admin', true)
                 .send(product)
                 .end((err, res) => {
@@ -91,7 +91,7 @@ describe('Products Controller', () => {
             chai.request(server)
                 .post('/api/products/')
                 .set('x-admin', true)
-                .send(store)
+                .send(product)
                 .end((err, res) => {
                     expect(res).to.have.status(400);
                     done();
@@ -107,7 +107,7 @@ describe('Products Controller', () => {
             chai.request(server)
                 .post('/api/products/')
                 .set('x-admin', true)
-                .send(store)
+                .send(product)
                 .end((err, res) => {
                     expect(res).to.have.status(400);
                     done();
@@ -136,6 +136,7 @@ describe('Products Controller', () => {
             product.code = 1
             product.description = 'product n1';
             product.price = 20.90;
+            product.stores = [1];
 
             chai.request(server)
                 .post('/api/products/')
@@ -143,7 +144,7 @@ describe('Products Controller', () => {
                 .send(product)
                 .end((err, res) => {
                     expect(res).to.have.status(500);
-                    expect(res).to.have.message.equal(`duplicated product ${product.code}`);
+                    expect(res.body).to.be.equal(`duplicated product ${product.code}`);
                     done();
                 })
         })
@@ -153,7 +154,9 @@ describe('Products Controller', () => {
     describe('/GET products', () => {
 
         before('clearing products db', (done) => { // clear products database before all GET tests
-            return db.products.remove({}).then(done());
+            db.products.remove()
+            db.loadCollections(['products']);
+            done();
         });
 
         it('should get an empty array with a clean DB', (done) => {
@@ -180,6 +183,7 @@ describe('Products Controller', () => {
                     expect(res).to.have.status(200);
                     expect(res.body).to.be.a('array');
                     expect(res.body).to.have.lengthOf(1);
+                    done();
                 });
         });
 
@@ -188,6 +192,9 @@ describe('Products Controller', () => {
     describe('/GET products by store', () => {
 
         before('inserting products to find', (done) => {
+            db.products.remove();
+            db.loadCollections(['products']);
+
             var product = new Product();
             product.code = 1;
             product.description = 'product n1';
@@ -203,7 +210,41 @@ describe('Products Controller', () => {
             product.stores = [1];
 
             repo.add(product);
+            done();
         });
+
+        it('should get an all products if param has wrong name', (done) => {
+            chai.request(server)
+                .get('/api/products?storeSSS=')
+                .end((err, res) => {
+                    expect(res).to.have.status(200);
+                    expect(res.body).to.be.a('array');
+                    expect(res.body).to.have.lengthOf(2);
+                    done();
+                });
+        });
+
+        it('should get an all products if param is empty', (done) => {
+            chai.request(server)
+                .get('/api/products?store=')
+                .end((err, res) => {
+                    expect(res).to.have.status(200);
+                    expect(res.body).to.be.a('array');
+                    expect(res.body).to.have.lengthOf(2);
+                    done();
+                });
+        });
+
+        it('should get an empty product array string is forced into param', (done) => {
+            chai.request(server)
+                .get('/api/products?store=abc')
+                .end((err, res) => {
+                    expect(res).to.have.status(200);
+                    expect(res.body).to.be.a('array');
+                    expect(res.body).to.have.lengthOf(0);
+                    done();
+                });
+        });        
 
         it('should get an empty product array if not exist in store', (done) => {
             chai.request(server)
@@ -212,6 +253,7 @@ describe('Products Controller', () => {
                     expect(res).to.have.status(200);
                     expect(res.body).to.be.a('array');
                     expect(res.body).to.have.lengthOf(0);
+                    done();
                 });
         });
 
@@ -222,6 +264,7 @@ describe('Products Controller', () => {
                     expect(res).to.have.status(200);
                     expect(res.body).to.be.a('array');
                     expect(res.body).to.have.lengthOf(1);
+                    done();
                 });
         });
 
@@ -232,6 +275,7 @@ describe('Products Controller', () => {
                     expect(res).to.have.status(200);
                     expect(res.body).to.be.a('array');
                     expect(res.body).to.have.lengthOf(2);
+                    done();
                 });
         });
 

@@ -68,8 +68,5 @@ function isValid_Store(store) {
  */
 function store_already_exists(store) {
     var exisitngStore = repo.getOne({ code: store.code });
-    if (exisitngStore) {
-        return true;
-    }
-    return false;
+    return exisitngStore;
 }

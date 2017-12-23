@@ -5,6 +5,7 @@ const bodyparser = require('body-parser');
 
 // app imports
 const store_routes = require('./api/routes/storeRoutes');
+const product_router = require('./api/routes/productRoutes');
 
 // setup db
 // using diskdb to keep it simple
@@ -17,23 +18,15 @@ let port = process.env.PORT || 3000;
 
 let router = express.Router();
 
-// middleware to use for all requests
-// just to make sure everything is working right
-// router.use(function (req, res, next) {
-//     //T ODO: check for DEV environment
-//     // log
-//     console.log("something is happening");
-//     next(); // pass execution to middleware chain
-// });
-
 router.get("/", function (req, res) {
-    // TODO: check for DEV environment
     // welcome rout just to make sure routing is working
     res.json({message: "Welcome to Magalu Finder API"});
 });
 
 // define routes for /stores
 router.use(store_routes);
+// define routes for /products
+router.use(product_router);
 
 // body parser must come before routes
 app.use(bodyparser.json());
