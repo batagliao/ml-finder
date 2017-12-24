@@ -382,8 +382,18 @@ describe('Products Controller', () => {
                 .get('/api/products/99')
                 .end( (err, res) => {
                     expect(res).to.have.status(200);
-                    expect(res.body).to.be.a('object');
-                    expect(res.body).to.be.empty();                    
+                    expect(res.body).to.be.equal('');
+                    done();                 
+                });
+        });
+
+        it('should return empty object if no product match - string', (done) => {
+            chai.request(server)
+                .get('/api/products/abc')
+                .end( (err, res) => {
+                    expect(res).to.have.status(200);
+                    expect(res.body).to.be.equal('');        
+                    done();            
                 });
         });
 
@@ -394,8 +404,9 @@ describe('Products Controller', () => {
                     expect(res).to.have.status(200);
                     expect(res.body).to.be.a('object');
                     var product = res.body;
-                    expect(product.code).to.be.equal(1);
+                    expect(product.code).to.be.equal(2);
                     expect(product.stores).to.be.a('array');
+                    done();
                 });
         });
     });

@@ -112,3 +112,16 @@ function product_already_exists(product) {
     var existingProduct = repo.getOne({ code: product.code });
     return existingProduct;
 }
+
+// route GET /products:id
+exports.get_product_by_code = (req, res) => {
+    var code = parseInt(req.params.id) || 0; 
+    
+    try{
+        var product = repo.getOne({'code': code});
+        res.json(product).send();        
+    }
+    catch(err){
+        res.status(500).send(err);
+    }
+}
