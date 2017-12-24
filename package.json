@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "install": "npm --prefix ./server install ./server && npm --prefix ./client install ./client",
-    "test": "(cd server && npm test) && (cd client && npm test)"
+    "test": "(cd server && npm test) && (cd client && npm test)",
+    "start:server": "(cd server && npm start)",
+    "start:client": "(cd client && npm start)",
+    "start": "concurrently --kill-others \"npm run start:server\" \"npm run start:client\""
   },
   "repository": {
     "type": "git",
@@ -16,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/batagliao/ml-finder/issues"
   },
-  "homepage": "https://github.com/batagliao/ml-finder#readme"
+  "homepage": "https://github.com/batagliao/ml-finder#readme",
+  "dependencies": {
+    "concurrently": "^3.5.1"
+  }
 }
