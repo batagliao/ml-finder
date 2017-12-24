@@ -354,4 +354,50 @@ describe('Products Controller', () => {
 
     });
 
+    describe('/GET product by code', () =>{
+        before('inserting products to test', (done) => {
+            db.products.remove();
+            db.loadCollections(['products']);
+
+            var product = new Product();
+            product.code = 1;
+            product.description = 'product n1';
+            product.price = 20.90;
+            product.stores = [1, 2, 3, 4];
+
+            repo.add(product);
+
+            product = new Product();
+            product.code = 2;
+            product.description = 'product n2';
+            product.price = 2.90;
+            product.stores = [1];
+
+            repo.add(product);
+            done();
+        });
+
+        it('should return empty object if no product match', (done) => {
+            chai.request(server)
+                .get('/api/products/99')
+                .end( (err, res) => {
+                    expect(res).to.have.status(200);
+                    expect(res.body).to.be.a('object');
+                    expect(res.body).to.be.empty();                    
+                });
+        });
+
+        it('should return product object if matches', (done) => {
+            chai.request(server)
+                .get('/api/products/2')
+                .end( (err, res) => {
+                    expect(res).to.have.status(200);
+                    expect(res.body).to.be.a('object');
+                    var product = res.body;
+                    expect(product.code).to.be.equal(1);
+                    expect(product.stores).to.be.a('array');
+                });
+        });
+    });
+
 });
