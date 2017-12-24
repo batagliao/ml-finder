@@ -6,18 +6,25 @@ const repo = require('../data/productsRepo');
 // route: GET /products?store=
 exports.list_all_products = (req, res) => {
     var queryStore = req.query['store'] || 0;
-    var productDescriptionFilter = req.query['description'] || '';    
+    var productDescriptionFilter = req.query['description'] || '';
 
     try {
         var products = repo.get();
-        if(queryStore != 0){
+        if (queryStore != 0) {
             // filter products by store
             var store = parseInt(queryStore);
             products = products.filter(contains_store(store));
         }
 
-        if(productDescriptionFilter != ''){
-            products = products.filter(starts_with(productDescriptionFilter));            
+        if (productDescriptionFilter != '') {
+            // infelizmente o diskdb não possui um método de busca parcial
+            // nesse caso, teremos que buscar tudo e filtrar aqui
+            // não haverá tempo para alterar o diskdb agora :(
+
+            // em um cenário de produção seria ideal fazer o cache da lista de produtos,
+            // porém, é necessário definir uma estratégia de invalidação de cache
+            // para que possa buscar a nova lista quando a mesma for alterada
+            products = products.filter(starts_with(productDescriptionFilter));
         }
 
         res.json(products);
@@ -32,8 +39,8 @@ exports.list_all_products = (req, res) => {
  * Evaluates filter for product based in store
  * @param {Integer} store - The store code to look for
  */
-function contains_store(store){    
-    return function(product){
+function contains_store(store) {
+    return function (product) {
         return product.stores.includes(store);
     }
 }
@@ -42,8 +49,8 @@ function contains_store(store){
  * Evaluate filter for product based on its description
  * @param {string} desc - description to filter
  */
-function starts_with(desc){
-    return function(product){
+function starts_with(desc) {
+    return function (product) {
         return product.description.startsWith(desc);
     }
 }

@@ -19,14 +19,6 @@ export class ProductService {
   }
 
   getProducts(description: string): Observable<Product[]> {
-    // infelizmente o diskdb não possui um método de busca parcial
-    // nesse caso, teremos que buscar tudo e filtrar aqui
-    // não haverá tempo para alterar o diskdb agora :(
-
-    // uma melhoria aqui seria fazer o cache da lista de produtos,
-    // porém, é necessário definir uma estratégica de invalidação de cache
-    // para que o client possa buscar a nova lista quando o server for alterado
-
     const filtered = this.getAllProducts()
       .map( products => {
         return products.filter((prod) => prod.description.startsWith(description));

@@ -25,7 +25,7 @@
           <div class="results" *ngIf="productItems.length > 0">
             <ul class="list-unstyled">
               <li *ngFor="let product of productItems">
-                <a href="#" class="row" (click)="onSelectProduct(product)">
+                <a [routerLink]="['/products', product.code]" class="row">
                   <div class="col-sm-1">
                     <i class="fa fa-gift fa-lg fa-fw" aria-hidden="true"></i>
                   </div>
