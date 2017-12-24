@@ -232,7 +232,7 @@ describe('Products Controller', () => {
             .end((err, res) => {
                 expect(res).to.have.status(200);
                 expect(res.body).to.be.a('array');
-                expect(res.body).to.have.lengthOf(2);
+                expect(res.body).to.have.lengthOf(0);
                 done();
             });
         });

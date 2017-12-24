@@ -6,6 +6,7 @@ const repo = require('../data/productsRepo');
 // route: GET /products?store=
 exports.list_all_products = (req, res) => {
     var queryStore = req.query['store'] || 0;
+    var productDescriptionFilter = req.query['description'] || '';    
 
     try {
         var products = repo.get();
@@ -13,6 +14,10 @@ exports.list_all_products = (req, res) => {
             // filter products by store
             var store = parseInt(queryStore);
             products = products.filter(contains_store(store));
+        }
+
+        if(productDescriptionFilter != ''){
+            products = products.filter(starts_with(productDescriptionFilter));            
         }
 
         res.json(products);
@@ -30,6 +35,16 @@ exports.list_all_products = (req, res) => {
 function contains_store(store){    
     return function(product){
         return product.stores.includes(store);
+    }
+}
+
+/**
+ * Evaluate filter for product based on its description
+ * @param {string} desc - description to filter
+ */
+function starts_with(desc){
+    return function(product){
+        return product.description.startsWith(desc);
     }
 }
 
