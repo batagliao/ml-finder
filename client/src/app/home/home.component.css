@@ -2,3 +2,27 @@
     height: 311px;
     margin-top: 50px;
 }
+
+.results {
+    border: 1px solid rgb(204, 204, 204);
+    border-top: 0;
+    border-bottom-right-radius: 2px;
+    border-bottom-left-radius: 2px;
+    margin-top: -2px;
+
+    font-size: 1.3em;
+}
+
+.results li {
+    padding: 0;
+    margin-top: -10px;
+    margin-bottom: -10px;
+}
+
+.results li:hover {
+    background: rgb(241, 241, 241);
+}
+
+.vertical-align {
+    
+}

@@ -2,7 +2,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
+import { HttpClientModule } from '@angular/common/http';
+
 import { AppRoutingModule } from './app-routing/app-routing.module';
+
+import { HttpClient } from '@angular/common/http';
+
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -17,10 +22,13 @@ import { ProductService } from './services/product.service';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     ReactiveFormsModule,
     AppRoutingModule
   ],
-  providers: [ProductService],
+  providers: [
+    ProductService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
