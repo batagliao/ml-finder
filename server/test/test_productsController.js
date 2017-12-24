@@ -1,3 +1,4 @@
+
 //During the test the env variable is set to test
 process.env.NODE_ENV = 'test';
 
@@ -187,6 +188,77 @@ describe('Products Controller', () => {
                 });
         });
 
+        
+
+    });
+
+    describe('/GET products filtered by description', () => {
+        before('inserting products to find', (done) => {
+            db.products.remove();
+            db.loadCollections(['products']);
+
+            var product = new Product();
+            product.code = 1;
+            product.description = 'abc n1';
+            product.price = 20.90;
+            product.stores = [1, 2, 3, 4];
+
+            repo.add(product);
+
+            product = new Product();
+            product.code = 2;
+            product.description = 'zyb n2';
+            product.price = 2.90;
+            product.stores = [1];
+
+            repo.add(product);
+            done();
+        });
+
+        it('should ignore filter if param is incorrect', (done) => {
+            chai.request(server)
+            .get('/api/products?descriptionee=prod')
+            .end((err, res) => {
+                expect(res).to.have.status(200);
+                expect(res.body).to.be.a('array');
+                expect(res.body).to.have.lengthOf(2);
+                done();
+            });
+        });
+
+        it('should return empty array if there are no matches', (done) => {
+            chai.request(server)
+            .get('/api/products?description=prod')
+            .end((err, res) => {
+                expect(res).to.have.status(200);
+                expect(res.body).to.be.a('array');
+                expect(res.body).to.have.lengthOf(2);
+                done();
+            });
+        });
+
+        it('should be able to filter products by name', (done) => {            
+            chai.request(server)
+                .get('/api/products?description=ab')
+                .end((err, res) => {
+                    expect(res).to.have.status(200);
+                    expect(res.body).to.be.a('array');
+                    expect(res.body).to.have.lengthOf(1);
+                    var prod = res.body[0];
+                    expect(prod.code).to.be.equal(1);
+                    done();
+                });
+            
+            chai.request(server)
+                .get('/api/products?description=prod')
+                .end( (err, res) => {
+                    expect(res).to.have.status(200);
+                    expect(res.body).to.be.a('array');
+                    expect(res.body).to.have.lengthOf(2);
+                    var prod = res.body[0];
+                    expect(prod.code).to.be(2);
+                });
+        });
     });
 
     describe('/GET products by store', () => {
