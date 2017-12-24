@@ -1,0 +1,14 @@
+[
+    {
+        "code": 1,
+        "description": "produto n1",
+        "price": 9.99,
+        "stores": [1]
+    },
+    {
+        "code": 2,
+        "description": "produto n2",
+        "price": 19.90,
+        "stores": [1]
+    }
+]

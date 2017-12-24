@@ -3,21 +3,22 @@ const express = require('express');
 const db = require('diskdb');
 const bodyparser = require('body-parser');
 
-// app imports
-const store_routes = require('./api/routes/storeRoutes');
-const product_router = require('./api/routes/productRoutes');
-
 // setup db
 // using diskdb to keep it simple
 if(process.env.NODE_ENV  !== 'test'){
     db.connect('api/data');
 }
 
+// app imports
+const store_routes = require('./api/routes/storeRoutes');
+const product_router = require('./api/routes/productRoutes');
+
 let app = express();
 let port = process.env.PORT || 3000;
 
 let router = express.Router();
 
+// /api
 router.get("/", function (req, res) {
     // welcome rout just to make sure routing is working
     res.json({message: "Welcome to Magalu Finder API"});

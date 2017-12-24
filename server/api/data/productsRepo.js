@@ -1,6 +1,6 @@
 const db = require('diskdb');
 
-db.loadCollections('products');
+db.loadCollections(['products']);
 
 
 /**

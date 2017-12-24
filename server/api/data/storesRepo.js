@@ -1,6 +1,6 @@
 const db = require('diskdb');
 
-db.loadCollections('stores');
+db.loadCollections(['stores']);
 
 /**
  * Adds a store to database
