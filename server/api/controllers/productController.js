@@ -119,7 +119,7 @@ exports.get_product_by_code = (req, res) => {
     
     try{
         var product = repo.getOne({'code': code});
-        res.json(product).send();        
+        res.json(product);   
     }
     catch(err){
         res.status(500).send(err);
