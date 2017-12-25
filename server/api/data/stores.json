@@ -1,1 +1,32 @@
-[]
+[
+    {
+        "code": 1,
+        "description": "Loja Matriz",
+        "postalcode": 14400020
+    },
+    {
+        "code": 2,
+        "description": "Loja Sertãozinho",
+        "postalcode": 14160170
+    },
+    {
+        "code": 3,
+        "description": "Loja Cuiaba",
+        "postalcode": 78005030
+    },
+    {
+        "code": 4,
+        "description": "Loja Ribeirão",
+        "postalcode": 14010120
+    },
+    {
+        "code": 5,
+        "description": "Loja São Paulo",
+        "postalcode": 1505010
+    },
+    {
+        "code": 6,
+        "description": "Loja Curitiba",
+        "postalcode": 80010100
+    }
+]
