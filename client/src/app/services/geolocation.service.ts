@@ -4,7 +4,8 @@ import { Observable } from 'rxjs/Observable';
 const GEOLOCATION_ERRORS = {
     'errors.location.unsupportedBrowser': 'Browser não suporta serviços de localização',
     'errors.location.permissionDenied': 'O usuário não concedeu permissão',
-    'errors.location.positionUnavailable': 'Não foi possível obter a localização. Verifique se a página não é servida por https',
+    'errors.location.positionUnavailable': `Não foi possível obter a localização.
+                                            É possível que a página não esteja sendo servida por HTTPS`,
     'errors.location.timeout': 'O tempo limite de espera expirou'
 };
 

@@ -1,5 +1,6 @@
+import { ModalComponent } from './../modal/modal.component';
 import { Product } from './../models/product.model';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, Validators, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
@@ -21,11 +22,14 @@ const POSITION_KEY = 'magalu-finder.user.position';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  @ViewChild('childModal') childModal: ModalComponent;
+
+  // modal properties
+  location_error_message: string;
 
   searchForm: FormGroup;
   products: Observable<Product[]>;
   searchterms = new Subject<string>();
-  showAskForPostalCode: Boolean = true;
 
   constructor(
     private productService: ProductService,
@@ -74,8 +78,8 @@ export class HomeComponent implements OnInit {
     this.geolocationService.getUserLocationFromBrowser().subscribe(
       (position: Position) => localStorage.setItem[POSITION_KEY] = position,
       (error) => {
-        console.log(error);
-        this.showAskForPostalCode = true;
+        this.location_error_message = error;
+        this.childModal.show();
       }
     );
   }
