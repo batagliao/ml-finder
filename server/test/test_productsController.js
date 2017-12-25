@@ -247,17 +247,33 @@ describe('Products Controller', () => {
                     var prod = res.body[0];
                     expect(prod.code).to.be.equal(1);
                     done();
-                });
-            
+                });                        
+        });
+
+        it('should be able to filter products by name 2', (done) => {            
             chai.request(server)
-                .get('/api/products?description=prod')
-                .end( (err, res) => {
+                .get('/api/products?description=n2')
+                .end((err, res) => {
+                    expect(res).to.have.status(200);
+                    expect(res.body).to.be.a('array');
+                    expect(res.body).to.have.lengthOf(1);
+                    var prod = res.body[0];
+                    expect(prod.code).to.be.equal(2);
+                    done();
+                });                        
+        });
+
+        it('should be able to filter products by name 3', (done) => {            
+            chai.request(server)
+                .get('/api/products?description=b')
+                .end((err, res) => {
                     expect(res).to.have.status(200);
                     expect(res.body).to.be.a('array');
                     expect(res.body).to.have.lengthOf(2);
                     var prod = res.body[0];
-                    expect(prod.code).to.be(2);
-                });
+                    expect(prod.code).to.be.equal(1);
+                    done();
+                });                        
         });
     });
 

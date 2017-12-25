@@ -4,6 +4,7 @@ const repo = require('../data/productsRepo');
 
 // route: GET /products 
 // route: GET /products?store=
+// route: GET /products?description=
 exports.list_all_products = (req, res) => {
     var queryStore = req.query['store'] || 0;
     var productDescriptionFilter = req.query['description'] || '';
@@ -24,7 +25,7 @@ exports.list_all_products = (req, res) => {
             // em um cenário de produção seria ideal fazer o cache da lista de produtos,
             // porém, é necessário definir uma estratégia de invalidação de cache
             // para que possa buscar a nova lista quando a mesma for alterada
-            products = products.filter(starts_with(productDescriptionFilter));
+            products = products.filter(contains(productDescriptionFilter));
         }
 
         res.json(products);
@@ -49,9 +50,9 @@ function contains_store(store) {
  * Evaluate filter for product based on its description
  * @param {string} desc - description to filter
  */
-function starts_with(desc) {
+function contains(desc) {
     return function (product) {
-        return product.description.startsWith(desc);
+        return product.description.indexOf(desc) > -1;
     }
 }
 
