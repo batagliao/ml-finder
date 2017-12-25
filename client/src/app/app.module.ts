@@ -14,6 +14,7 @@ import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ProductService } from './services/product.service';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
+import { GeoLocationService } from './services/geolocation.service';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
     AppRoutingModule
   ],
   providers: [
-    ProductService
+    ProductService,
+    GeoLocationService
   ],
   bootstrap: [AppComponent]
 })

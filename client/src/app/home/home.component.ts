@@ -11,6 +11,9 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/catch';
 
 import { ProductService } from '../services/product.service';
+import { GeoLocationService } from '../services/geolocation.service';
+
+const POSITION_KEY = 'magalu-finder.user.position';
 
 @Component({
   selector: 'app-home',
@@ -22,39 +25,59 @@ export class HomeComponent implements OnInit {
   searchForm: FormGroup;
   products: Observable<Product[]>;
   searchterms = new Subject<string>();
+  showAskForPostalCode: Boolean = true;
 
-  constructor(private productService: ProductService) {
+  constructor(
+    private productService: ProductService,
+    private geolocationService: GeoLocationService
+  ) {
 
   }
 
   ngOnInit() {
+
     this.searchForm = new FormGroup({
       searchBox: new FormControl('', Validators.required)
     });
 
+    // wire location service
+    this.setupGeoLocation();
+
     // listen to searchBox text changes
     this.searchForm.get('searchBox').valueChanges
-        .debounceTime(300)   // wait for 300ms in event fire till stop typing
-        .distinctUntilChanged() // ignore if the value is same as preview one
-        .subscribe( (value) => {
-      this.searchterms.next(value);
-    });
+      .debounceTime(300)   // wait for 300ms in event fire till stop typing
+      .distinctUntilChanged() // ignore if the value is same as preview one
+      .subscribe((value) => {
+        this.searchterms.next(value);
+      });
 
-    this.searchterms.subscribe( );
+    this.searchterms.subscribe();
 
     this.products = this.searchterms
-          .switchMap( (term) => {
-            const prods = term   // switch to new observable
-              // return http client observable
-              ? this.productService.getProducts(term)
-              // or empty observable
-              : Observable.of<Product[]>([]);
-              return prods;
-            })
-          .catch( error => {
-            // TODO: real error handling
-            console.log(error);
-            return Observable.of<Product[]>([]);
-          });
+      .switchMap((term) => {
+        const prods = term   // switch to new observable
+          // return http client observable
+          ? this.productService.getProducts(term)
+          // or empty observable
+          : Observable.of<Product[]>([]);
+        return prods;
+      })
+      .catch(error => {
+        // TODO: real error handling
+        console.log(error);
+        return Observable.of<Product[]>([]);
+      });
   }
+
+
+  setupGeoLocation() {
+    this.geolocationService.getUserLocationFromBrowser().subscribe(
+      (position: Position) => localStorage.setItem[POSITION_KEY] = position,
+      (error) => {
+        console.log(error);
+        this.showAskForPostalCode = true;
+      }
+    );
+  }
+
 }
