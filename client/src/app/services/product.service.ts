@@ -19,11 +19,7 @@ export class ProductService {
   }
 
   getProducts(description: string): Observable<Product[]> {
-    const filtered = this.getAllProducts()
-      .map( products => {
-        return products.filter((prod) => prod.description.startsWith(description));
-      });
-    return filtered;
+    return this.http.get<Product[]>(`${Endpoints.PRODUCT_GET_ALL}?description=${description}`);
   }
 
   getProductByCode(code: Number): Observable<Product> {
