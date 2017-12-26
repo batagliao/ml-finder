@@ -4,7 +4,6 @@
   "description": "## Como executar `git clone https://github.com/batagliao/ml-finder.git` <br /> `npm install` <br /> `npm start`",
   "main": "index.js",
   "scripts": {
-    "postinstall": "(cd server && npm install) && (cd client && npm install)",
     "test": "(cd server && npm test) && (cd client && npm test)",
     "start:server": "(cd server && npm start)",
     "start:client": "(cd client && npm start)",
