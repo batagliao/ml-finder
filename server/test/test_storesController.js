@@ -177,7 +177,7 @@ describe('Stores Controller', () => {
             db.stores.remove();
             db.loadCollections(['stores']);
 
-            db.stores.add({
+            db.stores.save({
                 "code": 1,
                 "description": "Loja Matriz",
                 "postalcode": 14400020,
@@ -185,7 +185,7 @@ describe('Stores Controller', () => {
                 "lat": -20.5401572,
                 "lng": -47.40518050000001
             });
-            db.stores.add({
+            db.stores.save({
                 "code": 2,
                 "description": "Loja Sertãozinho",
                 "postalcode": 14160170,
@@ -193,7 +193,7 @@ describe('Stores Controller', () => {
                 "lat": -21.129585,
                 "lng": -47.988292
             });
-            db.stores.add({
+            db.stores.save({
                 "code": 3,
                 "description": "Loja Cuiaba",
                 "postalcode": 78005030,
@@ -201,7 +201,7 @@ describe('Stores Controller', () => {
                 "lat": -15.5902348,
                 "lng": -56.09565389999999
             });
-            db.stores.add({
+            db.stores.save({
                 "code": 4,
                 "description": "Loja Ribeirão",
                 "postalcode": 14010120,
@@ -209,7 +209,7 @@ describe('Stores Controller', () => {
                 "lat": -21.1838026,
                 "lng": -47.81370219999999
             });
-            db.stores.add({
+            db.stores.save({
                 "code": 5,
                 "description": "Loja São Paulo",
                 "postalcode": 1505010,
@@ -217,7 +217,7 @@ describe('Stores Controller', () => {
                 "lat": -23.5539935,
                 "lng": -46.63110930000001
             });
-            db.stores.add({
+            db.stores.save({
                 "code": 6,
                 "description": "Loja Curitiba",
                 "postalcode": 80010100,
@@ -229,7 +229,7 @@ describe('Stores Controller', () => {
         });
        
         it('should get stores ordered by distance', (done) => {
-            chai.request(Server)
+            chai.request(server)
                 .get('/api/stores?code=1&code=2&code=3&code=4&code=5&code=6&lat=-21.12760065601982&lng=-47.844003817142315')
                 .end((err, res) => {
                     expect(res).to.have.status(200);
@@ -252,7 +252,7 @@ describe('Stores Controller', () => {
         });
 
         it('should work even if its passed only 1 store', (done) => {
-            chai.request(Server)
+            chai.request(server)
                 .get('/api/stores?code=1&clat=-21.12760065601982&lng=-47.844003817142315')
                 .end( (err, res) => {
                     expe
