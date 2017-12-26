@@ -2,31 +2,49 @@
     {
         "code": 1,
         "description": "Loja Matriz",
-        "postalcode": 14400020
+        "postalcode": 14400020,
+        "address": "Jesus Maria José, Franca - SP, 14400-020, Brazil",
+        "lat": -20.5401572,
+        "lng": -47.40518050000001
     },
     {
         "code": 2,
         "description": "Loja Sertãozinho",
-        "postalcode": 14160170
+        "postalcode": 14160170,
+        "address": "R. Dr. Olidair Ambrósio - Centro, Sertãozinho - SP, 14160-170, Brazil",
+        "lat": -21.129585,
+        "lng": -47.988292
     },
     {
         "code": 3,
         "description": "Loja Cuiaba",
-        "postalcode": 78005030
+        "postalcode": 78005030,
+        "address": "Araes, Cuiabá - MT, 78005-030, Brazil",
+        "lat": -15.5902348,
+        "lng": -56.09565389999999
     },
     {
         "code": 4,
         "description": "Loja Ribeirão",
-        "postalcode": 14010120
+        "postalcode": 14010120,
+        "address": "R. Barão do Amazonas - Centro, Ribeirão Preto - SP, 14010-120, Brazil",
+        "lat": -21.1838026,
+        "lng": -47.81370219999999
     },
     {
         "code": 5,
         "description": "Loja São Paulo",
-        "postalcode": 1505010
+        "postalcode": 1505010,
+        "address": "Sé, São Paulo - SP, 01505-010, Brazil",
+        "lat": -23.5539935,
+        "lng": -46.63110930000001
     },
     {
         "code": 6,
         "description": "Loja Curitiba",
-        "postalcode": 80010100
+        "postalcode": 80010100,
+        "address":"Av. Visc. de Guarapuava - Centro, Curitiba - PR, 80010-100, Brazil",
+        "lat": -25.436828,
+        "lng": -49.2685786
     }
 ]
