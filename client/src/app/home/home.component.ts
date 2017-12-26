@@ -14,7 +14,8 @@ import 'rxjs/add/operator/catch';
 import { ProductService } from '../services/product.service';
 import { GeoLocationService } from '../services/geolocation.service';
 
-const POSITION_KEY = 'magalu-finder.user.position';
+const POSITION_KEY_LATITUDE = 'magalu-finder.user.position.latitude';
+const POSITION_KEY_LONGITUDE = 'magalu-finder.user.position.longitude';
 
 @Component({
   selector: 'app-home',
@@ -76,7 +77,11 @@ export class HomeComponent implements OnInit {
 
   setupGeoLocation() {
     this.geolocationService.getUserLocationFromBrowser().subscribe(
-      (position: Position) => localStorage.setItem[POSITION_KEY] = position,
+      (position: Position) => {
+        console.log(position);
+        localStorage.setItem(POSITION_KEY_LATITUDE, String(position.coords.latitude));
+        localStorage.setItem(POSITION_KEY_LONGITUDE, String(position.coords.longitude));
+      },
       (error) => {
         this.location_error_message = error;
         this.childModal.show();
