@@ -4,8 +4,24 @@ const repo = require('../data/storesRepo');
 
 // route: GET /stores 
 exports.list_all_stores = (req, res) => {
+    var codes = req.query.code;
+    var lat = parseFloat(req.query.lat || 0);
+    var lng = parseFloat(req.query.lng || 0);
+
     try {
         var stores = repo.get();
+        if(codes){ // filter
+            // if only 1 store came, we need it to be an array, so lets ensure it
+            if(!Array.isArray(codes)){
+                codes = Array.of(codes);
+            }
+
+            stores = stores.filter(inArray(codes));
+        }
+
+        if(lat != 0 && lng != 0){ // sort ascending by distance
+
+        }
         res.json(stores);
         return;
     } catch (err) {
@@ -13,6 +29,16 @@ exports.list_all_stores = (req, res) => {
     }
     return;
 };
+
+/**
+ * Filter an array of stores by an array of its codes
+ * @param {*Array} subject - an array of stores codes
+ */
+function inArray (subject){
+    return function (store) {
+        return subject.indexOf(store.code.toString()) >= 0;
+    }
+}
 
 // route: POST /stores
 exports.add_store = (req, res) => {
