@@ -57,6 +57,11 @@
   },
   "defaults": {
     "styleExt": "css",
-    "component": {}
+    "component": {},
+    "serve": {
+      "ssl": true,
+      "sslCert": "./node_modules/browser-sync/lib/server/certs/server.crt",
+      "sslKey": "./node_modules/browser-sync/lib/server/certs/server.key"
+    }
   }
 }
