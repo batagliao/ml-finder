@@ -6,9 +6,13 @@
 <br />
 `npm start`
 
+Acesse https://localhost:4200
+
 ## Solução
 A solução é dividida em duas partes: Server e Client. <br />
 Os scripts npm no diretório raiz delegam a execução a scripts homônimos dentro de cada projeto. Ex: `npm install` irá executar `npm install` no projeto server e no projeto client.
+
+Detalhes de melhorias e os objetivos que não consegui alcançar a tempo se encontram no final
 
 ## Server
 
@@ -37,4 +41,26 @@ A estrutura do projeto **Server** está organizada da seguinte forma:
 
 
  ## Client
- No projeto client, foi utilizado Angular com Bootstrap e FontAwesome.
+ No projeto client, foi utilizado Angular com Bootstrap e FontAwesome. <br />
+ A localização é obtida pelo browser do usuário e o geocoding do CEP é feito através da API do Google Maps.
+
+
+ ## Pontos não realizados
+ Infelizmente há alguns pontos que não consegui realizar dentro do tempo proposto, e em virtude disso optei por alguns caminhos para entregar o projeto o mais completo possível.
+
+ ### Cadastro de administrador
+ Não consegui realizar a interface do cadastro de administrador de lojas e produtos <br />
+ A ideia era o cadastro de loja já buscar a localização do CEP da loja no momento do cadastro, para que o momento da consulta do usuário o tempo de resposta fosse mais curto.
+
+ #### Dados
+ Como não consegui concluir o cadastro a tempo, criei dados diretamente o arquivo json representando os dados através do DiskDB.
+
+ ### Localização
+ Para obter a localização do usuário, além de solicitar a permissão do mesmo no browser, deve haver uma estratégia de fallback. <br />
+ Há também a necessidade de usar o Fallback quando a página não é servida em HTTP, pois a maioria dos browsers rejeitará o pedido de localização nesses casos. <br />
+ Como não consgui completar essa etapa a tempo, fiz com que a página fosse servida através de HTTPS, com um certificado de desenvolvimento, para que fosse possível coletar a posição do usuário pelo browser.
+ O Fallback que seria desenvolvido é: no caso de não obter a localização pelo browser, oferecer um diálogo onde o usuário pudesse informar seu CEP e então fazer o geocoding do CEP para obter a localização.
+
+### Testes
+A API do lado servidor foi concebida criando primeiramente os testes. Exceto a parte de geolocalização, por acreditar que não conseguiria terminar todo o projeto realizer a funcionalidade primeiro. <br />
+Na parte client, não escrevi primeiramente os testes por falta de familiaridade e receio de não consegui entregar nada além dos testes pelo tempo

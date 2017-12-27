@@ -11,7 +11,7 @@
             "program": "${workspaceRoot}/node_modules/mocha/bin/_mocha",
             "stopOnEntry": false,
             "args": [
-                "${workspaceRoot}/test/test_productsController",
+                "${workspaceRoot}/test/test_storesController",
                 "--no-timeouts"
             ],
             "cwd": "${workspaceRoot}",
