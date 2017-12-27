@@ -10,8 +10,6 @@ import { Store } from '../models/store.model';
 import { GeoLocationService, POSITION_KEY_LATITUDE, POSITION_KEY_LONGITUDE } from '../services/geolocation.service';
 import { ChangeDetectorRef } from '@angular/core/';
 
-const maps = require('google-distance-matrix');
-
 @Component({
   selector: 'app-product-detail',
   templateUrl: './product-detail.component.html',

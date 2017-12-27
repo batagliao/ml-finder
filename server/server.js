@@ -2,6 +2,7 @@
 const express = require('express');
 const db = require('diskdb');
 const bodyparser = require('body-parser');
+const path = require('path');
 
 // setup db
 // using diskdb to keep it simple
@@ -36,6 +37,12 @@ app.use(bodyparser.json());
 app.use('/api', router);
 // serve static files
 app.use(express.static(__dirname + '/public'));
+
+// Catch all other routes and return the index file
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '/public/index.html'));
+  });
+
 // listen
 app.listen(port);
 

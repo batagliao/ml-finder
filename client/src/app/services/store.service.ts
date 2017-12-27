@@ -9,7 +9,7 @@ export class StoreService {
   constructor(private http: HttpClient) { }
 
   getStoresByCodes(codes: Number[]) {
-    const qParams = '?a=' + codes.join('&codes=');
+    const qParams = '?code=' + codes.join('&code=');
     return this.http.get<Store[]>(Endpoints.STORES_GET_ALL + qParams.replace('a=&', ''));
   }
 }
