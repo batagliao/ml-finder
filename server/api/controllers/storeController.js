@@ -2,8 +2,6 @@
 
 const repo = require('../data/storesRepo');
 
-
-
 // route: GET /stores 
 exports.list_all_stores = (req, res) => {
     var codes = req.query.code;
