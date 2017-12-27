@@ -34,7 +34,9 @@ app.use(bodyparser.json());
 
 // make server use the router
 app.use('/api', router);
-
+// serve static files
+app.use(express.static(__dirname + '/public'));
+// listen
 app.listen(port);
 
 console.log(`Magalu Finder RESTful API server started on ${port} port`);
