@@ -83,16 +83,5 @@ export class GeoLocationService {
             destinations: destinations,
             travelMode: 'DRIVING'
         });
-
-        // maps.matrix(Array.of(origin), destinations, (err, res) => {
-        //     console.log('res = ' + res);
-        //     console.log('err = ' + err);
-
-        // });
-
-        // return matrixFunction({
-        //     origins: Array.of(origin),
-        //     destinations: destinations
-        // });
     }
 }
