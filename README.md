@@ -8,6 +8,8 @@
 
 Acesse https://localhost:4200
 
+Ou então, basta acessar https://ml-finder.azurewebsites.net
+
 ## Solução
 A solução é dividida em duas partes: Server e Client. <br />
 Os scripts npm no diretório raiz delegam a execução a scripts homônimos dentro de cada projeto. Ex: `npm install` irá executar `npm install` no projeto server e no projeto client.
@@ -41,7 +43,7 @@ A estrutura do projeto **Server** está organizada da seguinte forma:
 
 
  ## Client
- No projeto client, foi utilizado Angular com Bootstrap e FontAwesome. <br />
+ No projeto client, foi utilizado Angular com Bootstrap. <br />
  A localização é obtida pelo browser do usuário e o geocoding do CEP é feito através da API do Google Maps.
 
 
@@ -49,18 +51,41 @@ A estrutura do projeto **Server** está organizada da seguinte forma:
  Infelizmente há alguns pontos que não consegui realizar dentro do tempo proposto, e em virtude disso optei por alguns caminhos para entregar o projeto o mais completo possível.
 
  ### Cadastro de administrador
- Não consegui realizar a interface do cadastro de administrador de lojas e produtos <br />
+ Não consegui realizar a interface de administrador do cadastro de lojas e produtos <br />
  A ideia era o cadastro de loja já buscar a localização do CEP da loja no momento do cadastro, para que o momento da consulta do usuário o tempo de resposta fosse mais curto.
 
  #### Dados
- Como não consegui concluir o cadastro a tempo, criei dados diretamente o arquivo json representando os dados através do DiskDB.
+ Como não consegui concluir o cadastro a tempo, criei dados diretamente no arquivo json representando os dados através do DiskDB. <br />
+ Na pasta `server/api/data` se encontram dois arquivos:
+ - stores.json
+ - products.json
+
+ O arquivo `stores.json` contém 6 lojas em diferentes cidades do país para demonstrar a funcionalidade de localzação de maneira mais explícita.
+
+ O arquivo `products.json` contém 10 produtos dispersos aleatoriamente entre as lojas previamente mencionadas, também com o intuito de tornar a funcionalidade mais evidente.
 
  ### Localização
  Para obter a localização do usuário, além de solicitar a permissão do mesmo no browser, deve haver uma estratégia de fallback. <br />
  Há também a necessidade de usar o Fallback quando a página não é servida em HTTP, pois a maioria dos browsers rejeitará o pedido de localização nesses casos. <br />
+ 
  Como não consgui completar essa etapa a tempo, fiz com que a página fosse servida através de HTTPS, com um certificado de desenvolvimento, para que fosse possível coletar a posição do usuário pelo browser.
+ 
  O Fallback que seria desenvolvido é: no caso de não obter a localização pelo browser, oferecer um diálogo onde o usuário pudesse informar seu CEP e então fazer o geocoding do CEP para obter a localização.
 
+ Um outro cenário enfrentado com a localização foi o de não conseguir resolver as rotinas de localização do lado servidor da forma que gostaria. Por isso, de forma a completar ao menos a tarefa de exibir as lojas ordenadas pela localização, optei por trazer essa questão para o front-end afim de permitir que isso pudesse ser visto. Esse é um design que de fato entendo que é problemático, mas optei por esse caminho a fim de entregar.
+
+
 ### Testes
-A API do lado servidor foi concebida criando primeiramente os testes. Exceto a parte de geolocalização, por acreditar que não conseguiria terminar todo o projeto realizer a funcionalidade primeiro. <br />
-Na parte client, não escrevi primeiramente os testes por falta de familiaridade e receio de não consegui entregar nada além dos testes pelo tempo
+A API do lado servidor foi concebida criando primeiramente os testes. Exceto a parte de geolocalização. <br />
+Na parte client, não escrevi primeiramente os testes por falta de familiaridade e receio de não consegui entregar nada além dos testes.
+
+## Melhorias
+Algumas melhorias que entendo como bem vindas:
+ - Alterar o design da solução de modo a obter as informações de localização diretamente da API
+ - Separar as aplicações cliente/servidor em containers
+ - Alterar o DiskDB para alguma outra fonte de dados para possibilitar queries mais específicas nas classes de repositório (infelizmente o DiskDB é limitado nesse aspecto)
+ - Finalizar o fluxo de fallback em caso de impossibilidade de obter a localização e/ou timeout
+ - Desenvolvimento da parte administrativa
+ - Autenticação
+ - Melhoria nas exibições e logs de erro
+ - Feedback visual de "loading" quando alguma chamada HTTP é realizada
