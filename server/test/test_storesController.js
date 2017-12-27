@@ -171,7 +171,7 @@ describe('Stores Controller', () => {
 
     });
 
-    describe('/GET closest stores by code', () => {
+    describe('/GET stores by code', () => {
 
         before('clearing stores and inserting', (done) => { // clear stores database before all GET tests
             db.stores.remove();
@@ -228,32 +228,20 @@ describe('Stores Controller', () => {
             done();
         });
        
-        it('should get stores ordered by distance', (done) => {
+        it('should get all passed stores', (done) => {
             chai.request(server)
-                .get('/api/stores?code=1&code=2&code=3&code=4&code=5&code=6&lat=-21.12760065601982&lng=-47.844003817142315')
+                .get('/api/stores?code=1&code=2&code=3&code=4')
                 .end((err, res) => {
                     expect(res).to.have.status(200);
                     expect(res.body).to.be.an('array');
-                    expect(res.body).to.have.lengthOf(6);
-                    store = res.body[0];
-                    expect(store.code).to.be.equal(4);
-                    store = res.body[1];
-                    expect(store.code).to.be.equal(2);
-                    store = res.body[2];
-                    expect(store.code).to.be.equal(1);
-                    store = res.body[3];
-                    expect(store.code).to.be.equal(5);
-                    store = res.body[4];
-                    expect(store.code).to.be.equal(6);
-                    store = res.body[5];
-                    expect(store.code).to.be.equal(3);
+                    expect(res.body).to.have.lengthOf(4);
                     done();
                 });
         });
 
         it('should work even if its passed only 1 store', (done) => {
             chai.request(server)
-                .get('/api/stores?code=1&lat=-21.12760065601982&lng=-47.844003817142315')
+                .get('/api/stores?code=1')
                 .end( (err, res) => {
                     expect(res).to.have.status(200);
                     expect(res.body).to.be.an('array');
@@ -269,38 +257,6 @@ describe('Stores Controller', () => {
             expect(true).to.be.equal(true);
             done();
         });
-
-        it('should return stores selected not sorted when no location is provided', (done) => {
-            chai.request(server)
-            .get('/api/stores?code=1&code=2')
-            .end((err, res) => {
-                expect(res).to.have.status(200);
-                expect(res.body).to.be.a('array');
-                expect(res.body).to.have.lengthOf(2);
-                done();
-            });
-        });
-
-        it('should return stores selected not sorted when only latitude is provided', (done) => {
-            chai.request(server)
-            .get('/api/stores?code=1&code=2&lat=-20.00')
-            .end((err, res) => {
-                expect(res).to.have.status(200);
-                expect(res.body).to.be.a('array');
-                expect(res.body).to.have.lengthOf(2);
-                done();
-            });
-        });
-
-        it('should return stores selected not sorted when only longitude is provided', (done) => {
-            chai.request(server)
-            .get('/api/stores?code=1&code=2&lng=-47.00')
-            .end((err, res) => {
-                expect(res).to.have.status(200);
-                expect(res.body).to.be.a('array');
-                expect(res.body).to.have.lengthOf(2);
-                done();
-            });
-        });
+        
     });
 });
