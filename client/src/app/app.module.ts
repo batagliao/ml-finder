@@ -14,6 +14,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { ProductService } from './services/product.service';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { GeoLocationService } from './services/geolocation.service';
+import { StoreService } from './services/store.service';
 
 import { ModalComponent } from './modal/modal.component';
 
@@ -34,6 +35,7 @@ import { ModalComponent } from './modal/modal.component';
   ],
   providers: [
     ProductService,
+    StoreService,
     GeoLocationService
   ],
   bootstrap: [AppComponent]

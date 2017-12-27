@@ -1,5 +1,14 @@
+import { element } from 'protractor';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { Store } from '../models/store.model';
+
+import 'rxjs/add/observable/bindCallback';
+
+export const POSITION_KEY_LATITUDE = 'magalu-finder.user.position.latitude';
+export const POSITION_KEY_LONGITUDE = 'magalu-finder.user.position.longitude';
+
+declare var google: any;
 
 const GEOLOCATION_ERRORS = {
     'errors.location.unsupportedBrowser': 'Browser não suporta serviços de localização',
@@ -12,7 +21,12 @@ const GEOLOCATION_ERRORS = {
 @Injectable()
 export class GeoLocationService {
 
-    constructor() { }
+    distanceService: any;
+
+    constructor() {
+        // maps.key = 'AIzaSyDEBi71xLBEYWVlTOHv-RPYlxijcDvvl4I';
+        this.distanceService = new google.maps.DistanceMatrixService();
+    }
 
     getUserLocationFromBrowser(): Observable<any> {
         // https://www.w3schools.com/html/html5_geolocation.asp
@@ -57,4 +71,17 @@ export class GeoLocationService {
         });
     }
 
+    getStoresDistance(origin: any, stores: Store[]): Observable<any> {
+        const matrixFunction: any = Observable.bindCallback(this.distanceService.getDistanceMatrix);
+        const destinations = stores.map((s) => {
+            const dest = new google.maps.LatLng(s.lat, s.lng);
+            return dest;
+        });
+        return matrixFunction
+        ({
+            origins: [origin],
+            destinations: destinations,
+            travelMode: 'DRIVING'
+        });
+    }
 }

@@ -2,3 +2,25 @@
     position: relative;
     left: -85px
 }
+
+.store-box{
+    display: flex;
+    border: 1px solid rgb(204, 204, 204);
+    border-radius: 3px;
+    margin-bottom: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    justify-content: space-between;
+}
+
+.flex-1{
+    flex: 1;
+}
+
+.distance{
+    display: flex;
+    font-size: 1.6em;
+    font-weight: bold;
+    
+    align-items: center;
+}

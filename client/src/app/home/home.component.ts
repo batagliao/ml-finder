@@ -12,10 +12,8 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/catch';
 
 import { ProductService } from '../services/product.service';
-import { GeoLocationService } from '../services/geolocation.service';
+import { GeoLocationService, POSITION_KEY_LATITUDE, POSITION_KEY_LONGITUDE } from '../services/geolocation.service';
 
-const POSITION_KEY_LATITUDE = 'magalu-finder.user.position.latitude';
-const POSITION_KEY_LONGITUDE = 'magalu-finder.user.position.longitude';
 
 @Component({
   selector: 'app-home',
